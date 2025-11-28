@@ -7,10 +7,10 @@
 **Industry:** Legal Operations, Compliance Services, and Audit Risk Management
 
 ## Problem Statement
-GlobalWorks has seen a decline in engagement, satisfaction, and work-life balance scores among employees with 2–5 years of tenure, a 1,207-person cohort representing 40.2% of the workforce. Leadership wants to understand whether these declines signal early-stage burnout and which groups are most affected.
+GlobalWorks has seen a decline in engagement, satisfaction, and work-life balance scores among employees with 2–5 years of tenure, a 1,204-person cohort representing 40.2% of the workforce. Leadership wants to understand whether these declines signal early-stage burnout and which groups are most affected.
 
 ### Executive Summary
-This project explores early indicators of burnout among GlobalWorks’ mid-career employees with 2–5 years of tenure, a 1,207-person cohort representing more than 40% of the workforce. Using HR records, engagement surveys, training data, and recruitment information, the analysis builds a clear picture of wellbeing pressures that may be contributing to declining engagement and operational strain across key legal, audit, and compliance functions.
+This project explores early indicators of burnout among GlobalWorks’ mid-career employees with 2–5 years of tenure, a 1,204-person cohort representing more than 40% of the workforce. Using HR records, engagement surveys, training data, and recruitment information, the analysis builds a clear picture of wellbeing pressures that may be contributing to declining engagement and operational strain across key legal, audit, and compliance functions.
 
 The exploratory work focused on creating clean, consistent datasets, generating descriptive statistics, and examining relationships between sentiment, tenure, and training participation. Visualisations were used to identify departments with lower sentiment and to highlight employees showing multiple early-risk markers. These findings provide leadership with an evidence-based view of where burnout vulnerability is emerging and where targeted wellbeing or development interventions may help strengthen retention and performance.
 
