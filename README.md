@@ -1,69 +1,91 @@
 # Project 2: Exploratory Data Analysis (EDA)
-## Burnout Risk Assessment of Mid-Career Employees at GlobalWorks
+## Wellbeing and Retention Patterns at GlobalWorks
 
 **Consultant:** Mohamed Bucheeri  
-**Client:** GlobalWorks  
+**Client:** GlobalWorks (fictional)  
 **Role:** People Data Analytics Consultant (External)  
 **Industry:** Legal Operations, Compliance Services, and Audit Risk Management
 
+## Introduction
+This project examines GlobalWorks’ HR, engagement, and training data to understand how employee wellbeing varies across the organisation. The analysis focuses on engagement, satisfaction, and work–life balance, and explores how these patterns differ across divisions and relate to employee exit behaviour.
+
+*GlobalWorks is a fictional organisation, and the dataset used in this project is synthetic and adapted for educational purposes.*
+
 ## Problem Statement
-GlobalWorks has seen a decline in engagement, satisfaction, and work-life balance scores among employees with 2–5 years of tenure, a 1,204-person cohort representing 40.2% of the workforce. Leadership wants to understand whether these declines signal early-stage burnout and which groups are most affected.
-
-### Executive Summary
-This project explores early indicators of burnout among GlobalWorks’ mid-career employees with 2–5 years of tenure, a 1,204-person cohort representing more than 40% of the workforce. Using HR records, engagement surveys, training data, and recruitment information, the analysis builds a clear picture of wellbeing pressures that may be contributing to declining engagement and operational strain across key legal, audit, and compliance functions.
-
-The exploratory work focused on creating clean, consistent datasets, generating descriptive statistics, and examining relationships between sentiment, tenure, and training participation. Visualisations were used to identify departments with lower sentiment and to highlight employees showing multiple early-risk markers. These findings provide leadership with an evidence-based view of where burnout vulnerability is emerging and where targeted wellbeing or development interventions may help strengthen retention and performance.
+GlobalWorks has observed large differences in employee wellbeing across divisions, with engagement and work–life balance scores ranging from very low to strong. These uneven patterns have raised concerns about reduced wellbeing in certain divisions and potential links to workforce stability.
 
 ## Project Aim
-The aim of this project is to analyse HR records, engagement surveys, and training data to identify early indicators of burnout among mid-career employees and highlight where risks are most concentrated. The analysis will support leadership in prioritising targeted interventions to improve wellbeing and retention.
-
-## Motivation
-Burnout is a growing concern in professional services, where sustained workloads and regulatory expectations place ongoing pressure on employees. Mid-career staff are particularly at risk as they balance increasing responsibility with limited progression opportunities, making declines in engagement or satisfaction especially costly for performance and retention.
-
-Understanding these pressures through data allows organisations to identify early warning signs before they affect wider business outcomes. This project provides GlobalWorks with an evidence-based view of where burnout risk may be emerging and how targeted interventions can support wellbeing and continuity across critical teams.
-
-## Audience
-This analysis is intended for GlobalWorks’ senior leadership team, which has responsibility for workforce strategy, employee wellbeing, and retention. The findings are also relevant to HR business partners, learning and development teams, and operational managers who work closely with mid career employees across legal, audit, and compliance functions. The results are presented in a clear and accessible format so that non technical decision makers can use the insights to inform practical and targeted interventions.
-
-## Data Sources
-This project uses four internal datasets provided by GlobalWorks. These datasets contain HR records, employee sentiment data, professional development activity, and applicant background information. Together they support a structured review of sentiment trends, tenure characteristics, and training patterns among mid-career employees.
-
-- **`employee_data.csv`**  
-  Contains HR information including employee identifiers, job titles, business units, department categories, employment status, and start and exit dates. It is used to calculate tenure and to segment employees by organisational structure.
-
-- **`employee_engagement_survey_data.csv`**  
-  Includes engagement, satisfaction, and work-life balance scores linked to employee IDs. It is used to assess sentiment levels and to identify potential early indicators of burnout.
-
-- **`training_and_development_data.csv`**  
-  Provides details on training activity, including programme names, training types, duration, outcomes, and costs. It is used to examine development patterns and the relationship between training exposure and sentiment indicators.
-
-- **`recruitment_data.csv`**  
-  Contains applicant information such as education, experience, desired salary, and application status. It is included for general context but is not a central part of the burnout analysis.
-
-## Methodology
-The analysis followed a structured workflow that began with consolidating the four internal datasets provided by GlobalWorks. Once the data was imported, initial checks were carried out to confirm that identifiers were consistent, date fields were correctly formatted, and categorical variables were labelled in a uniform way. After this review, the datasets were cleaned, aligned by employee ID, and merged into a single analytical table that allowed sentiment, tenure, and training variables to be examined together.
-
-Descriptive statistics were produced to establish an initial understanding of engagement, satisfaction, work life balance, tenure distribution, and training participation. Visualisations were then created to explore relationships between these variables and to highlight departments and business units where sentiment scores were lower. Additional engineered variables were introduced, such as tenure groups and burnout flags, to support the identification of employees who displayed more than one early warning indicator.
-
-## Workflow Summary
-1. Imported all datasets and reviewed their structure.  
-2. Standardised column names, ID fields, date formats, and category labels.  
-3. Cleaned missing values and resolved inconsistencies across datasets.  
-4. Merged HR, engagement, and training data into a unified analytical table.  
-5. Produced descriptive statistics for sentiment, training, and tenure measures.  
-6. Created engineered variables to support deeper analysis.  
-7. Generated visualisations to highlight departments with lower sentiment.  
-8. Flagged employees showing multiple early burnout indicators.  
-9. Prepared results for interpretation and reporting.
+To analyse wellbeing patterns across the organisation, with a focus on how engagement, satisfaction, and work–life balance vary across divisions and how these sentiment indicators relate to employee exit behaviour.
 
 ## EDA Objectives
-1. Measure baseline engagement, satisfaction, and work-life balance using descriptive statistics for the 2–5-year tenure cohort.
-2. Assess data quality by checking identifier alignment, missing values, and typing consistency across HR, survey, and training datasets.
-3. Compare sentiment scores across departments and job functions to identify low-sentiment groups.
-4. Analyse how sentiment varies across the 2–5-year tenure range.
-5. Evaluate training participation and outcomes, and test their association with sentiment indicators.
-6. Flag employees who meet multiple early-risk conditions such as low sentiment, reduced work-life balance, limited training, or long time in role.
-7. Compare business units to identify whether structural workload patterns align with higher burnout-risk indicators.
+1. Summarise overall engagement, satisfaction, and work–life balance across the workforce.  
+2. Compare wellbeing across divisions to identify areas with notably higher or lower sentiment.  
+3. Analyse training duration, cost, and completion patterns across employees.  
+4. Examine whether engagement, satisfaction, and work–life balance differ between active and exited employees.  
+5. Build a small predictive model to test whether sentiment indicators are associated with exit behaviour.  
+6. Highlight divisions or workforce segments that may require targeted wellbeing or retention support.
+
+## Executive Summary
+This analysis provides an evidence-based view of wellbeing and retention patterns across GlobalWorks. The data shows that wellbeing levels differ significantly across divisions, and several teams display both lower wellbeing and higher exit rates. These patterns suggest that retention challenges are linked most strongly to divisional environments rather than organisation-wide issues.
+
+Key findings include:
+- Wellbeing scores vary widely across divisions, confirming uneven employee experience.  
+- Divisions with lower work–life balance and satisfaction tend to have higher exit rates.  
+- Training patterns do not show major differences between active and exited employees.  
+- A simple predictive model indicates that work–life balance and satisfaction are the strongest sentiment-based predictors of employee exit behaviour.  
+- A small set of divisions emerges as clear priorities for targeted support.
+
+## Motivation
+Employee wellbeing is a central factor in workforce stability. In regulated and operationally intensive environments, uneven workload pressures can create significant differences in employee experience across teams. Understanding these patterns through data enables organisations to identify where support is most needed, improve retention, and strengthen operational continuity.
+
+## Audience
+This analysis is designed for:
+- Senior leadership focusing on workforce strategy and retention  
+- HR and People Operations teams  
+- Learning and Development teams  
+- Divisional managers responsible for workload, employee support, and team climate  
+
+All insights are presented in a clear and accessible format for non-technical decision-makers.
+
+## Data Sources
+The project uses four synthetic datasets based on a fictional company scenario. These datasets support a structured review of sentiment trends, training activity, and exit behaviour.
+
+- **`employee_data.csv`**: Core HR information such as division, department, job title, dates, and employment status.  
+- **`employee_engagement_survey_data.csv`**: Engagement, satisfaction, and work–life balance survey scores.  
+- **`training_and_development_data.csv`**: Training duration, outcome, and cost for each employee.  
+- **`recruitment_data.csv`**: Applicant data included for context only.
+
+## Methodology
+The project follows a structured and reproducible EDA workflow:
+
+1. **Import and inspect datasets** to assess structure, missingness, and identifier consistency.  
+2. **Clean and standardise fields**, including column names, date formats, and categorical labels.  
+3. **Merge datasets** into a single employee-level analytical table.  
+4. **Engineer key variables**, such as exit flags, sentiment averages, and training exposure metrics.  
+5. **Conduct EDA** using visual and descriptive techniques to understand sentiment distribution, divisional differences, and exit patterns.  
+6. **Model exit behaviour** using a simple logistic regression, focusing on sentiment variables.  
+7. **Identify priority divisions** requiring targeted support based on combined evidence.  
+8. **Develop conclusions and recommendations** for organisational decision-making.
+
+## Workflow Summary
+1. Loaded and inspected datasets.  
+2. Standardised column names and identifiers.  
+3. Cleaned missing data and parsed date fields.  
+4. Merged HR, engagement, and training data.  
+5. Created engineered features such as exit flags and sentiment averages.  
+6. Analysed wellbeing patterns across the organisation.  
+7. Examined training outcomes and their relationship to exit status.  
+8. Modelled sentiment’s predictive power for exit behaviour.  
+9. Identified divisions requiring targeted support.
+
+## EDA Objectives
+1. Summarise overall engagement, satisfaction, and work–life balance across the workforce.  
+2. Compare wellbeing across divisions to identify areas with notably higher or lower sentiment.  
+3. Analyse training duration, cost, and completion patterns across employees.  
+4. Examine whether engagement, satisfaction, and work–life balance differ between active and exited employees.  
+5. Build a small predictive model to test whether sentiment indicators are associated with exit behaviour.  
+6. Highlight divisions or workforce segments that may require targeted wellbeing or retention support.
+
 
 ## File Directory
 project-2-burnout-eda/
@@ -114,13 +136,7 @@ Additional engineered variables, such as tenureyears and burnout flags, will be 
 | Rehire                      | object    | Indicates whether the employee is a rehire |
 | EngagementSurveyStatus      | object    | Survey participation status |
 | TimeInPosition              | float64   | Time spent in current position (years) |
-| PerformanceScore            | object    | Performance review score category |
-
-**Engineered variables to be created during EDA:**  
-- StartDate_parsed (datetime64)  
-- ExitDate_parsed (datetime64)  
-- EffectiveEndDate  
-- tenureyears (float)
+| PerformanceScore            | object    | Performance review score category | 
 
 ### 2. employee_engagement_survey_data.csv
 | Column Name          | Data Type | Description |
@@ -141,10 +157,6 @@ Additional engineered variables, such as tenureyears and burnout flags, will be 
 | TrainingOutcome       | object    | Result of the training (Completed, Passed, Failed) |
 | TrainingCost          | float64   | Cost of the training programme |
 
-**Engineered variables:**  
-- TotalTrainings (count per employee)  
-- MostCommonOutcome (mode)
-
 ### 4. recruitment_data.csv
 | Column Name         | Data Type | Description |
 |---------------------|-----------|-------------|
@@ -158,24 +170,95 @@ Additional engineered variables, such as tenureyears and burnout flags, will be 
 | Status              | object    | Application stage (Interviewing, Rejected, etc.) |
 
 ### 5. Engineered Variables (Created During EDA)
-| Variable Name      | Data Type | Description |
-|--------------------|-----------|-------------|
-| tenureyears        | float64   | Total tenure in years based on start and end dates |
-| burnout_flag       | int64     | Flag equal to 1 if employee meets multiple burnout risk criteria |
-| training_intensity | float64   | Number of trainings per year of tenure |
-| sentiment_average  | float64   | Average of engagement, satisfaction, and work life balance scores |
-| tenure_group       | object    | Tenure category: Early (0 to 1), Mid (2 to 5), Late (6 or more) |
+| Variable Name         | Data Type | Description |
+|-----------------------|-----------|-------------|
+| effective_end_date    | datetime  | ExitDate for leavers; today’s date for active employees. |
+| exit_flag             | int64     | Indicator equal to 1 if the employee has exited the organisation; 0 if active. |
+| sentiment_average     | float64   | Mean of engagement, satisfaction, and work–life balance scores. |
+| training_completed    | int64     | Indicator equal to 1 if training outcome is Completed or Passed; 0 otherwise. |
+| training_duration     | float64   | Duration of the employee’s recorded training programme (days). |
+| training_cost         | float64   | Cost of the employee’s recorded training programme. |
 
-## Conclusions (To Be Completed After EDA)
+## Conclusion
+The analysis shows clear differences in wellbeing across divisions at GlobalWorks and demonstrates that these patterns align with variation in exit rates. Divisions with lower work–life balance and satisfaction tend to experience higher turnover, suggesting that retention challenges arise from local working conditions rather than organisation-wide issues. A small set of divisions appears to need immediate attention, while others show more stable and positive wellbeing profiles. These results provide a structured, data-driven foundation for prioritising targeted support and improving workforce stability.
 
-## Recommendations (To Be Completed After EDA)
+## Recommendations
+Based on the findings, GlobalWorks should consider the following actions:
 
-## Areas for Further Research (To Be Completed After EDA)
+### 1. Prioritise Support for High-Risk Divisions
+Safety, Project Management – Engineering, and Finance and Accounting show the strongest combination of low wellbeing and higher exit rates. These divisions would benefit from:
+- Reviewing workload distribution and staffing levels  
+- Assessing team culture and management practices  
+- Introducing focused wellbeing initiatives, such as regular check-ins or workload planning reviews  
 
-## Limitations
-The analysis draws on data from the most recent HR, survey, and training cycles, meaning that findings reflect a specific point in time rather than a long term trend. Sentiment scores are self reported and may not capture the full complexity of employee experience. Training records vary in depth, and some development activity may take place outside formal programmes. Recruitment data is included for context but is not directly linked to burnout outcomes.
+### 2. Strengthen Work–Life Balance Policies
+Work–life balance showed the clearest relationship with exit behaviour. GlobalWorks should:
+- Promote flexible scheduling where operationally possible  
+- Review expectations around response times and off-hours availability  
+- Encourage managers to monitor early signs of overload  
 
-The merged dataset provides a strong basis for exploratory work, but it does not include qualitative variables such as workload distribution, team culture, leadership style, or detailed performance metrics. These factors may also influence burnout risk and would require additional investigation in future research stages.
+### 3. Monitor Moderate-Risk Divisions
+Divisions such as Technology/IT, Field Operations, People Services, Aerial, and Engineers show mixed sentiment patterns. These teams should be monitored regularly to prevent further decline. Short quarterly sentiment checks may help detect emerging issues.
+
+### 4. Maintain Best Practices in High-Stability Divisions
+General – SGA, General – ENG, Sales and Marketing, Splicing, and Wireless show stronger wellbeing and lower turnover. GlobalWorks should:
+- Record what works well in these divisions  
+- Share good management and workload practices across the organisation  
+
+### 5. Continue Using Data to Guide Wellbeing Strategy
+The analysis demonstrates that wellbeing and retention challenges are uneven across divisions. Regular data reviews, combined with feedback from team leaders, will help ensure interventions remain targeted and effective.
+
+## Areas for Further Research
+Several issues could not be fully explored with the available data and would benefit from additional investigation:
+
+1. **Workload and scheduling data**  
+   Actual working hours or project load would help confirm whether workload is the main driver of lower wellbeing in certain divisions.
+
+2. **Team-level variation**  
+   The current data aggregates wellbeing at the division level. Exploring differences at team or manager level may reveal more specific drivers of morale and turnover.
+
+3. **Longitudinal analysis**  
+   Wellbeing and exit data over multiple years would help identify whether declines are recent or long-standing.
+
+4. **Qualitative insights**  
+   Focus groups or structured interviews could provide context for the quantitative patterns observed, especially in high-risk areas.
+
+## Limitations and Improvements
+This analysis provides a strong overview of wellbeing and retention patterns at GlobalWorks, but several limitations restrict the depth of the findings. These limitations also point to clear opportunities for improving future analyses.
+
+### Limitations
+1. **Single time-point data**  
+   The HR, engagement, and training datasets represent one moment in time. Without historical records, it is not possible to determine whether declines in wellbeing or increases in turnover are recent or long-running.
+
+2. **Self-reported sentiment measures**  
+   Engagement, satisfaction, and work–life balance scores are subjective and may not fully capture day-to-day experience, workload strain, or team culture.
+
+3. **Incomplete training information**  
+   Training records vary in depth. Some development activities may occur outside formal programmes, which limits the ability to link training participation to wellbeing or exit behaviour.
+
+4. **Lack of qualitative context**  
+   The dataset does not include variables such as team culture, leadership style, communication quality, or workload distribution, all of which likely influence wellbeing and retention.
+
+5. **Division-level aggregation**  
+   Analyses rely on division-level averages, which can mask variation within teams or under specific managers.
+
+### Improvements for Future Work
+1. **Collect multi-year data**  
+   Tracking wellbeing and exits over several years would allow for trend analysis and clearer identification of developing risks.
+
+2. **Include workload and scheduling metrics**  
+   Variables such as hours worked, overtime use, or project load would help determine whether workload is a major driver of low work–life balance.
+
+3. **Capture richer training information**  
+   Expanding training data to include coaching, mentoring, informal learning, and internal development activities would support a deeper analysis of learning and retention.
+
+4. **Add team-level or manager-level identifiers**  
+   This would enable more granular insights and help identify high-performing or struggling teams beyond divisional averages.
+
+5. **Use qualitative inputs**  
+   Focus groups, interviews, or open-text survey responses could help explain why specific divisions score lower and what employees feel would improve their working conditions.
+
+Together, these improvements would support a more complete understanding of the factors shaping wellbeing and retention and help GlobalWorks design more targeted and effective interventions.
 
 ## Sources
 The datasets in this project were adapted from the following publicly available resource:
@@ -183,4 +266,4 @@ The datasets in this project were adapted from the following publicly available 
 Rana, Ravindra Singh. "Employee Dataset." Kaggle, 2023.  
 Available at: https://www.kaggle.com/datasets/ravindrasinghrana/employeedataset/
 
-The data has been modified and expanded to create a synthetic HR dataset for educational purposes within General Assembly’s Data Science curriculum. All names, identifiers, and organisational details (including the fictional company GlobalWorks) are entirely artificial and do not represent real individuals or entities.
+The data has been modified and expanded to create a synthetic HR dataset for educational purposes within General Assembly’s Data Science curriculum. All names, identifiers, and organisational details (including the fictional company GlobalWorks) are artificial and do not represent real individuals or entities.
