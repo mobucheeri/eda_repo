@@ -89,10 +89,10 @@ project-2-burnout-eda/
 │   └── recruitment_data.csv
 │
 ├── notebooks/
-│   └── 01_eda_burnout.ipynb
+│   └── eda_project.ipynb
 │
 ├── presentation/
-│   └── burnout_analysis_presentation.pdf
+│   └── EDA Presentation.pdf
 │
 └── images/
     └── visualisations/
