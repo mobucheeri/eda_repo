@@ -3,36 +3,35 @@
 
 **Consultant:** Mohamed Bucheeri  
 **Client:** GlobalWorks (fictional)  
-**Role:** People Data Analytics Consultant (External)  
+**Role:** People Data Analytics Consultant (External)
 **Industry:** Legal Operations, Compliance Services, and Audit Risk Management
 
-## Introduction
-This project examines GlobalWorks’ HR, engagement, and training data to understand how employee wellbeing varies across the organisation. The analysis focuses on engagement, satisfaction, and work–life balance, and explores how these patterns differ across divisions and relate to employee exit behaviour.
+### Introduction
+This project analyses GlobalWorks’ HR, engagement, and training data to understand how employee wellbeing varies across the organisation. The analysis focuses on engagement, satisfaction, and work–life balance, and explores how these patterns differ across divisions and relate to employee exit behaviour.
 
 *GlobalWorks is a fictional organisation, and the dataset used in this project is synthetic and adapted for educational purposes.*
 
 ## Problem Statement
-GlobalWorks has observed large differences in employee wellbeing across divisions, with engagement and work–life balance scores ranging from very low to strong. These uneven patterns have raised concerns about reduced wellbeing in certain divisions and potential links to workforce stability.
+GlobalWorks’ most recent HR and engagement data reveal a wide gap in wellbeing, with average engagement ranging from about 2.1 to 4.0 and work–life balance from roughly 2.5 to 3.4 on the 1–5 scale, while exit rates range from around 41% to nearly 100%, and remains high even after excluding retirements. The organisation seeks to link these disparities to employee exits to identify which divisions are at heightened risk of avoidable turnover.
 
 ## Project Aim
-To analyse wellbeing patterns across the organisation, with a focus on how engagement, satisfaction, and work–life balance vary across divisions and how these sentiment indicators relate to employee exit behaviour.
+To assess how employee wellbeing varies across divisions at GlobalWorks and explore how these differences relate to exit behaviour in order to identify divisions facing elevated retention risk.
 
 ## EDA Objectives
 1. Summarise overall engagement, satisfaction, and work–life balance across the workforce.  
-2. Compare wellbeing across divisions to identify areas with notably higher or lower sentiment.  
-3. Analyse training duration, cost, and completion patterns across employees.  
-4. Examine whether engagement, satisfaction, and work–life balance differ between active and exited employees.  
-5. Build a small predictive model to test whether sentiment indicators are associated with exit behaviour.  
-6. Highlight divisions or workforce segments that may require targeted wellbeing or retention support.
+2. Compare division-level wellbeing to identify divisions with notably lower sentiment.  
+3. Examine how divisional wellbeing patterns differ between areas with higher and lower exit rates.
+4. Distinguish avoidable vs non-avoidable exits and assess how each relates to wellbeing by division.  
+5. Identify divisions that show weaker wellbeing and higher (avoidable) exit rates to prioritise retention support.
 
 ## Executive Summary
-This analysis provides an evidence-based view of wellbeing and retention patterns across GlobalWorks. The data shows that wellbeing levels differ significantly across divisions, and several teams display both lower wellbeing and higher exit rates. These patterns suggest that retention challenges are linked most strongly to divisional environments rather than organisation-wide issues.
+This analysis provides an evidence-based view of wellbeing and retention patterns across GlobalWorks. The data shows that wellbeing levels differ significantly across divisions, and several teams display both lower wellbeing and higher exit rates. These patterns suggest that retention challenges are linked most strongly to **divisional working conditions** rather than organisation-wide issues.
 
 Key findings include:
 - Wellbeing scores vary widely across divisions, confirming uneven employee experience.  
 - Divisions with lower work–life balance and satisfaction tend to have higher exit rates.  
-- Training patterns do not show major differences between active and exited employees.  
-- A simple predictive model indicates that work–life balance and satisfaction are the strongest sentiment-based predictors of employee exit behaviour.  
+- Exit rates remain high even after excluding retirements, indicating that most turnover is avoidable.  
+- No single wellbeing measure explains exits on its own; retention risk reflects broader divisional conditions.  
 - A small set of divisions emerges as clear priorities for targeted support.
 
 ## Motivation
@@ -62,30 +61,21 @@ The project follows a structured and reproducible EDA workflow:
 2. **Clean and standardise fields**, including column names, date formats, and categorical labels.  
 3. **Merge datasets** into a single employee-level analytical table.  
 4. **Engineer key variables**, such as exit flags, sentiment averages, and training exposure metrics.  
-5. **Conduct EDA** using visual and descriptive techniques to understand sentiment distribution, divisional differences, and exit patterns.  
-6. **Model exit behaviour** using a simple logistic regression, focusing on sentiment variables.  
-7. **Identify priority divisions** requiring targeted support based on combined evidence.  
-8. **Develop conclusions and recommendations** for organisational decision-making.
+5. **Conduct EDA** using visual and descriptive techniques to explore wellbeing distributions, divisional differences, and exit patterns.  
+6. **Analyse exit behaviour**, distinguishing avoidable and non-avoidable exits and examining age at exit.  
+7. **Link divisional wellbeing to exit rates** using regression plots and multivariate visualisations.  
+8. **Identify priority divisions** requiring targeted retention support.
 
 ## Workflow Summary
 1. Loaded and inspected datasets.  
 2. Standardised column names and identifiers.  
 3. Cleaned missing data and parsed date fields.  
 4. Merged HR, engagement, and training data.  
-5. Created engineered features such as exit flags and sentiment averages.  
-6. Analysed wellbeing patterns across the organisation.  
-7. Examined training outcomes and their relationship to exit status.  
-8. Modelled sentiment’s predictive power for exit behaviour.  
+5. Created engineered features such as exit flags, sentiment averages, and avoidable exit indicators.  
+6. Analysed wellbeing patterns across divisions.  
+7. Examined exit reasons, age at exit, and avoidable vs non-avoidable exits.  
+8. Linked divisional wellbeing patterns to exit rates.  
 9. Identified divisions requiring targeted support.
-
-## EDA Objectives
-1. Summarise overall engagement, satisfaction, and work–life balance across the workforce.  
-2. Compare wellbeing across divisions to identify areas with notably higher or lower sentiment.  
-3. Analyse training duration, cost, and completion patterns across employees.  
-4. Examine whether engagement, satisfaction, and work–life balance differ between active and exited employees.  
-5. Build a small predictive model to test whether sentiment indicators are associated with exit behaviour.  
-6. Highlight divisions or workforce segments that may require targeted wellbeing or retention support.
-
 
 ## File Directory
 project-2-burnout-eda/
@@ -169,7 +159,32 @@ Additional engineered variables, such as tenureyears and burnout flags, will be 
 | Job Title           | object    | Role applied for |
 | Status              | object    | Application stage (Interviewing, Rejected, etc.) |
 
-### 5. Engineered Variables (Created During EDA)
+### 5. employee_full
+The `employee_full` dataset is the final employee-level table created during EDA.  
+It is produced by merging `employee_data.csv`, `employee_engagement_survey_data.csv`, and `training_and_development_data.csv`, followed by feature engineering.  
+All analysis and visualisations in this project are based on this dataset.
+
+### Variables in employee_full
+
+| Variable Name              | Data Type | Description |
+|---------------------------|-----------|-------------|
+| empid                     | int64     | Unique employee identifier |
+| Division                  | object    | Employee division |
+| DepartmentType            | object    | Department or team category |
+| StartDate                 | datetime  | Employment start date |
+| ExitDate                  | datetime  | Employment end date (null if active) |
+| effective_end_date        | datetime  | ExitDate for leavers; analysis date for active employees |
+| tenureyears               | float64   | Length of employment in years |
+| Engagement Score          | int64     | Engagement survey score (1–5) |
+| Satisfaction Score        | int64     | Satisfaction survey score (1–5) |
+| Work-Life Balance Score   | int64     | Work–life balance survey score (1–5) |
+| sentiment_average         | float64   | Mean of the three wellbeing scores |
+| Exit Flag                 | int64     | 1 if employee has exited; 0 if active |
+| Avoidable Exit            | int64     | 1 if exit is avoidable; 0 if non-avoidable |
+| total_trainings           | int64     | Total number of recorded training events |
+| training_intensity        | float64   | Trainings per year of tenure |
+
+### 6. Engineered Variables (Created During EDA)
 | Variable Name         | Data Type | Description |
 |-----------------------|-----------|-------------|
 | effective_end_date    | datetime  | ExitDate for leavers; today’s date for active employees. |
@@ -180,85 +195,85 @@ Additional engineered variables, such as tenureyears and burnout flags, will be 
 | training_cost         | float64   | Cost of the employee’s recorded training programme. |
 
 ## Conclusion
-The analysis shows clear differences in wellbeing across divisions at GlobalWorks and demonstrates that these patterns align with variation in exit rates. Divisions with lower work–life balance and satisfaction tend to experience higher turnover, suggesting that retention challenges arise from local working conditions rather than organisation-wide issues. A small set of divisions appears to need immediate attention, while others show more stable and positive wellbeing profiles. These results provide a structured, data-driven foundation for prioritising targeted support and improving workforce stability.
+This analysis shows clear differences in wellbeing across divisions at GlobalWorks and demonstrates that these patterns align with variation in exit rates. Divisions with lower work–life balance and satisfaction tend to experience higher and largely avoidable turnover, indicating that retention challenges are driven mainly by divisional working conditions rather than organisation-wide issues. A small set of divisions emerges as clear priorities for intervention, while others show more stable wellbeing and retention profiles. Overall, the findings provide a clear, data-driven basis for targeted retention action.
 
 ## Recommendations
 Based on the findings, GlobalWorks should consider the following actions:
 
 ### 1. Prioritise Support for High-Risk Divisions
-Safety, Project Management – Engineering, and Finance and Accounting show the strongest combination of low wellbeing and higher exit rates. These divisions would benefit from:
+Safety, Project Management – Engineering, and Finance and Accounting show the strongest combination of weaker wellbeing and higher avoidable exit rates. These divisions would benefit from:
 - Reviewing workload distribution and staffing levels  
 - Assessing team culture and management practices  
-- Introducing focused wellbeing initiatives, such as regular check-ins or workload planning reviews  
+- Introducing focused wellbeing initiatives such as regular check-ins or workload planning reviews  
 
 ### 2. Strengthen Work–Life Balance Policies
-Work–life balance showed the clearest relationship with exit behaviour. GlobalWorks should:
+Work–life balance shows the clearest relationship with exit behaviour. GlobalWorks should:
 - Promote flexible scheduling where operationally possible  
-- Review expectations around response times and off-hours availability  
+- Review expectations around response times and out-of-hours availability  
 - Encourage managers to monitor early signs of overload  
 
 ### 3. Monitor Moderate-Risk Divisions
-Divisions such as Technology/IT, Field Operations, People Services, Aerial, and Engineers show mixed sentiment patterns. These teams should be monitored regularly to prevent further decline. Short quarterly sentiment checks may help detect emerging issues.
+Divisions such as Technology / IT, Field Operations, People Services, Aerial, and Engineers show mixed sentiment patterns. These teams should be monitored regularly to prevent further decline. Short, periodic sentiment reviews may help detect emerging issues.
 
-### 4. Maintain Best Practices in High-Stability Divisions
-General – SGA, General – ENG, Sales and Marketing, Splicing, and Wireless show stronger wellbeing and lower turnover. GlobalWorks should:
-- Record what works well in these divisions  
-- Share good management and workload practices across the organisation  
+### 4. Maintain Best Practices in Stable Divisions
+General – SGA, General – ENG, Sales and Marketing, Splicing, and Wireless show stronger wellbeing and lower exit rates. GlobalWorks should:
+- Document effective workload and management practices in these areas  
+- Share successful approaches across other divisions  
 
-### 5. Continue Using Data to Guide Wellbeing Strategy
-The analysis demonstrates that wellbeing and retention challenges are uneven across divisions. Regular data reviews, combined with feedback from team leaders, will help ensure interventions remain targeted and effective.
+### 5. Continue Using Data to Guide Retention Strategy
+The analysis shows that wellbeing and retention challenges are uneven across divisions. Ongoing data reviews, combined with managerial feedback, will help ensure that interventions remain targeted and effective.
 
 ## Areas for Further Research
 Several issues could not be fully explored with the available data and would benefit from additional investigation:
 
 1. **Workload and scheduling data**  
-   Actual working hours or project load would help confirm whether workload is the main driver of lower wellbeing in certain divisions.
+   Information on working hours, overtime, or project load would help confirm whether workload is the main driver of lower work–life balance.
 
 2. **Team-level variation**  
-   The current data aggregates wellbeing at the division level. Exploring differences at team or manager level may reveal more specific drivers of morale and turnover.
+   Current analysis is division-level. Exploring differences at team or manager level may reveal more specific drivers of wellbeing and turnover.
 
 3. **Longitudinal analysis**  
-   Wellbeing and exit data over multiple years would help identify whether declines are recent or long-standing.
+   Wellbeing and exit data over multiple years would help distinguish short-term issues from persistent structural problems.
 
 4. **Qualitative insights**  
-   Focus groups or structured interviews could provide context for the quantitative patterns observed, especially in high-risk areas.
+   Interviews or focus groups could help explain why certain divisions perform worse and what employees believe would improve conditions.
 
 ## Limitations and Improvements
-This analysis provides a strong overview of wellbeing and retention patterns at GlobalWorks, but several limitations restrict the depth of the findings. These limitations also point to clear opportunities for improving future analyses.
+This analysis provides a clear overview of wellbeing and retention patterns at GlobalWorks, but several limitations restrict the depth of the findings.
 
 ### Limitations
 1. **Single time-point data**  
-   The HR, engagement, and training datasets represent one moment in time. Without historical records, it is not possible to determine whether declines in wellbeing or increases in turnover are recent or long-running.
+   The datasets represent one snapshot in time, limiting the ability to assess trends or causality.
 
-2. **Self-reported sentiment measures**  
-   Engagement, satisfaction, and work–life balance scores are subjective and may not fully capture day-to-day experience, workload strain, or team culture.
+2. **Self-reported wellbeing measures**  
+   Engagement, satisfaction, and work–life balance scores are subjective and may not fully reflect actual workload or team dynamics.
 
-3. **Incomplete training information**  
-   Training records vary in depth. Some development activities may occur outside formal programmes, which limits the ability to link training participation to wellbeing or exit behaviour.
+3. **Incomplete training coverage**  
+   Some learning and development activity may occur outside recorded programmes, limiting conclusions about training effects.
 
 4. **Lack of qualitative context**  
-   The dataset does not include variables such as team culture, leadership style, communication quality, or workload distribution, all of which likely influence wellbeing and retention.
+   Variables such as leadership style, workload intensity, and team culture are not directly observed.
 
 5. **Division-level aggregation**  
-   Analyses rely on division-level averages, which can mask variation within teams or under specific managers.
+   Using averages may mask variation within divisions across teams or managers.
 
 ### Improvements for Future Work
 1. **Collect multi-year data**  
-   Tracking wellbeing and exits over several years would allow for trend analysis and clearer identification of developing risks.
+   This would allow trend analysis and earlier detection of emerging risks.
 
-2. **Include workload and scheduling metrics**  
-   Variables such as hours worked, overtime use, or project load would help determine whether workload is a major driver of low work–life balance.
+2. **Include workload indicators**  
+   Metrics such as hours worked or project demand would strengthen conclusions around work–life balance.
 
-3. **Capture richer training information**  
-   Expanding training data to include coaching, mentoring, informal learning, and internal development activities would support a deeper analysis of learning and retention.
+3. **Expand development data**  
+   Including mentoring, coaching, and informal learning would improve understanding of development and retention.
 
-4. **Add team-level or manager-level identifiers**  
-   This would enable more granular insights and help identify high-performing or struggling teams beyond divisional averages.
+4. **Add team or manager identifiers**  
+   This would enable more targeted and actionable insights.
 
-5. **Use qualitative inputs**  
-   Focus groups, interviews, or open-text survey responses could help explain why specific divisions score lower and what employees feel would improve their working conditions.
+5. **Incorporate qualitative feedback**  
+   Employee narratives could provide valuable context for interpreting quantitative results.
 
-Together, these improvements would support a more complete understanding of the factors shaping wellbeing and retention and help GlobalWorks design more targeted and effective interventions.
+Together, these improvements would support a deeper understanding of wellbeing and retention and help GlobalWorks design more effective, division-specific interventions.
 
 ## Sources
 The datasets in this project were adapted from the following publicly available resource:
