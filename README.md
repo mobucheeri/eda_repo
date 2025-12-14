@@ -159,40 +159,71 @@ Additional engineered variables, such as tenureyears and burnout flags, will be 
 | Job Title           | object    | Role applied for |
 | Status              | object    | Application stage (Interviewing, Rejected, etc.) |
 
-### 5. employee_full
-The `employee_full` dataset is the final employee-level table created during EDA.  
-It is produced by merging `employee_data.csv`, `employee_engagement_survey_data.csv`, and `training_and_development_data.csv`, followed by feature engineering.  
-All analysis and visualisations in this project are based on this dataset.
+## 5. `employee_full`
+The `employee_full` dataset is the final employee-level table created during the EDA.  
+It is produced by merging the following source datasets on `EmployeeID`:
 
-### Variables in employee_full
+- `employee_data.csv`
+- `employee_engagement_survey_data.csv`
+- `training_and_development_data.csv`
+- `recruitment_data.csv`
+
+All analysis and visualisations in this project are based on this merged dataset and a small number of engineered variables.
+
+## Variables in `employee_full`
+
+### Variables from `employee_data.csv`
+
+| Variable Name      | Data Type | Description |
+|-------------------|-----------|-------------|
+| EmployeeID        | int64     | Unique employee identifier |
+| Division          | object    | Business division the employee belongs to |
+| DepartmentType    | object    | Department or functional group |
+| JobRole           | object    | Employee job role or position |
+| Gender            | object    | Employee gender |
+| DOB               | datetime  | Date of birth |
+| StartDate         | datetime  | Employment start date |
+| ExitDate          | datetime  | Employment end date; missing if active |
+| TerminationType   | object    | Reason for exit (e.g. resignation, retirement) |
+
+### Variables from `employee_engagement_survey_data.csv`
 
 | Variable Name              | Data Type | Description |
 |---------------------------|-----------|-------------|
-| empid                     | int64     | Unique employee identifier |
-| Division                  | object    | Employee division |
-| DepartmentType            | object    | Department or team category |
-| StartDate                 | datetime  | Employment start date |
-| ExitDate                  | datetime  | Employment end date (null if active) |
-| effective_end_date        | datetime  | ExitDate for leavers; analysis date for active employees |
-| tenureyears               | float64   | Length of employment in years |
+| Survey Date               | datetime  | Date the engagement survey was completed |
 | Engagement Score          | int64     | Engagement survey score (1–5) |
 | Satisfaction Score        | int64     | Satisfaction survey score (1–5) |
 | Work-Life Balance Score   | int64     | Work–life balance survey score (1–5) |
-| sentiment_average         | float64   | Mean of the three wellbeing scores |
-| Exit Flag                 | int64     | 1 if employee has exited; 0 if active |
-| Avoidable Exit            | int64     | 1 if exit is avoidable; 0 if non-avoidable |
-| total_trainings           | int64     | Total number of recorded training events |
-| training_intensity        | float64   | Trainings per year of tenure |
 
-### 6. Engineered Variables (Created During EDA)
-| Variable Name         | Data Type | Description |
-|-----------------------|-----------|-------------|
-| effective_end_date    | datetime  | ExitDate for leavers; today’s date for active employees. |
-| exit_flag             | int64     | Indicator equal to 1 if the employee has exited the organisation; 0 if active. |
-| sentiment_average     | float64   | Mean of engagement, satisfaction, and work–life balance scores. |
-| training_completed    | int64     | Indicator equal to 1 if training outcome is Completed or Passed; 0 otherwise. |
-| training_duration     | float64   | Duration of the employee’s recorded training programme (days). |
-| training_cost         | float64   | Cost of the employee’s recorded training programme. |
+### Variables from `training_and_development_data.csv`
+
+| Variable Name                 | Data Type | Description |
+|------------------------------|-----------|-------------|
+| Training Date                | datetime  | Date of training activity |
+| Training Type                | object    | Type of training programme |
+| Training Outcome             | object    | Outcome of training (e.g. Completed, Failed) |
+| Training Duration(Days)      | float64   | Duration of training in days |
+| Training Cost                | float64   | Cost of training |
+
+### Variables from `recruitment_data.csv`
+
+| Variable Name        | Data Type | Description |
+|---------------------|-----------|-------------|
+| Application Date    | datetime  | Date of job application |
+| Education Level     | object    | Highest education level |
+| Years of Experience | float64   | Years of prior work experience |
+| Expected Salary     | float64   | Salary expectation at application |
+| Application Status  | object    | Outcome of recruitment process |
+
+## Engineered Variables
+
+The following variables are created after merging the datasets and are used directly in the analysis:
+
+| Variable Name        | Data Type | Description |
+|---------------------|-----------|-------------|
+| Effective End Date  | datetime  | ExitDate for leavers; analysis date for active employees |
+| Exit Flag           | int64     | Indicator equal to 1 if the employee has exited; 0 if active |
+| Avoidable Exit      | int64     | Indicator equal to 1 if the exit is classified as avoidable; 0 otherwise |
 
 ## Conclusion
 This analysis shows clear differences in wellbeing across divisions at GlobalWorks and demonstrates that these patterns align with variation in exit rates. Divisions with lower work–life balance and satisfaction tend to experience higher and largely avoidable turnover, indicating that retention challenges are driven mainly by divisional working conditions rather than organisation-wide issues. A small set of divisions emerges as clear priorities for intervention, while others show more stable wellbeing and retention profiles. Overall, the findings provide a clear, data-driven basis for targeted retention action.
